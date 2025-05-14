@@ -35,4 +35,9 @@ public class PlayerStats : MonoBehaviour
 
     }
 
+    public void GetStatsSOStatsUp(SOStatsAlterable _stats)
+    {
+
+    }
+
 }
