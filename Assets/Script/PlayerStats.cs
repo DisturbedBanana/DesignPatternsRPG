@@ -1,43 +1,37 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private float _ATK;
-    [SerializeField] private float _ATKSPEED;
-    [SerializeField] private float _SPEED;
-    [SerializeField] private float _HEALTH;
-    [SerializeField] private float _DEF;
+    private float _ATK;
+    private float _SPEED;
+    private float _ATKSPEED;
+    private float _HEALTH;
+    private float _DEF;
 
-    [SerializeField] private SOStatsAlterable _SOStats;
-
-    private UnityEvent m_StatsUP;
+    [SerializeField] private SOStatsAlterable baseStats;
 
     private void Start()
     {
-        _ATK = _SOStats._ATK;
-        _ATKSPEED = _SOStats._ATKSPEED;
-        _SPEED = _SOStats._SPEED;
-        _HEALTH = _SOStats._HEALTH;
-        _DEF = _SOStats._DEF;
-
-        m_StatsUP = new UnityEvent();
-        m_StatsUP.AddListener(ONEventTriggered);
+        ApplyStats(baseStats);
     }
 
-    private void Update()
+    public void AddStats(SOStatsAlterable statsToAdd)
     {
-        
+        _ATK += statsToAdd.ATK;
+        _SPEED += statsToAdd.SPEED;
+        _ATKSPEED += statsToAdd.ATKSPEED;
+        _HEALTH += statsToAdd.HEALTH;
+        _DEF += statsToAdd.DEF;
+
+        Debug.Log($"Stats updated! ATK: {_ATK}, SPEED: {_SPEED}, HEALTH: {_HEALTH}");
     }
 
-    public void ONEventTriggered()
+    private void ApplyStats(SOStatsAlterable stats)
     {
-
+        _ATK = stats.ATK;
+        _SPEED = stats.SPEED;
+        _ATKSPEED = stats.ATKSPEED;
+        _HEALTH = stats.HEALTH;
+        _DEF = stats.DEF;
     }
-
-    public void GetStatsSOStatsUp(SOStatsAlterable _stats)
-    {
-
-    }
-
 }

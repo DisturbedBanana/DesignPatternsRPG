@@ -2,11 +2,23 @@ using UnityEngine;
 
 public class CollectiblesStats : MonoBehaviour
 {
-    [SerializeField] SOStatsAlterable _Stats;
-    private PlayerStats _playerStats;
+    [SerializeField] private SOStatsAlterable stats;
 
     private void OnTriggerEnter(Collider other)
     {
-        _playerStats.GetStatsSOStatsUp(_Stats);
+        /*        IStatsReceiver receiver = other.GetComponent<IStatsReceiver>();
+                if (receiver != null)
+                {
+                    receiver.AddStats(stats);
+                    Destroy(gameObject);
+                }*/
+
+        PlayerStats player = other.GetComponent<PlayerStats>();
+        if (player != null)
+        {
+            Debug.Log("triggered");
+            player.AddStats(stats);
+            Destroy(gameObject);
+        }
     }
 }

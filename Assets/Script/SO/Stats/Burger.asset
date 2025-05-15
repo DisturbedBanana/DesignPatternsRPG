@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7a69b652f21e0842a59c44ff6521c00, type: 3}
-  m_Name: SOStatsAlterable01
+  m_Name: Burger
   m_EditorClassIdentifier: 
-  _ATK: 10
-  _SPEED: 10
-  _ATKSPEED: 1
-  _HEALTH: 5
-  _DEF: 0
+  _ATK: 0
+  _SPEED: -0.5
+  _ATKSPEED: 0
+  _HEALTH: 0
+  _DEF: 1
