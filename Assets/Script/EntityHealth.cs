@@ -1,25 +1,28 @@
 using System;
 using System.Collections;
+using Script;
 using UnityEngine;
 using UnityEngine.Serialization;
+using static GameplayEnums;
 
 public class EntityHealth : MonoBehaviour
 {
-    [SerializeField] private int maxHealth;
+    [SerializeField] private int maxHealth = 10;
     [SerializeField] private int health = 10;
-    [FormerlySerializedAs("damageEffect")] [SerializeField] private GameObject damageParticlesObject;
-    [FormerlySerializedAs("deathEffect")] [SerializeField] private GameObject deathParticlesObject;
     
     private bool canTakeDamage = true;
     private bool isDead = false;
-    
-    private ParticleSystem damageParticles;
-    private ParticleSystem deathParticles;
+
+    private EffectsPlayer effectsPlayer;
 
     private void Start()
     {
-        damageParticles = damageParticlesObject.GetComponent<ParticleSystem>();
-        deathParticles = deathParticlesObject.GetComponent<ParticleSystem>();
+        effectsPlayer = GetComponent<EffectsPlayer>();
+    }
+
+    private void Reset()
+    {
+        gameObject.AddComponent<EffectsPlayer>();
     }
 
     public bool IsDead { get { return isDead; } }
@@ -41,13 +44,13 @@ public class EntityHealth : MonoBehaviour
     {
         if (health > 0)
         {
-            damageParticles.Play();
+            effectsPlayer.PlayEffect(EffectType.Damage);
             StartCoroutine(DamageTimerCoroutine());
         }
         else
         {
-            Debug.Log("Entity is dead");
-            deathParticles.Play();
+            Debug.Log(gameObject.name + " is dead");
+            effectsPlayer.PlayEffect(EffectType.Death);
             isDead = true;
         }
     }

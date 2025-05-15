@@ -10,7 +10,6 @@ public partial class GetPlayerGameObjectAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Player;
     [SerializeReference] public BlackboardVariable<Transform> Transform;
-    //BlackboardVariable
     
     protected override Status OnStart()
     {
