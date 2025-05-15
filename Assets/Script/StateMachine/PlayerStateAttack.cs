@@ -5,6 +5,7 @@ public class PlayerStateAttack : PlayerState
     private GameObject _hitCollider;
     private float _attackDuration = 0.5f;
     private float _timer = 0f;
+    private bool _hasEnded;
 
     public override void StateEnter()
     {
@@ -22,6 +23,11 @@ public class PlayerStateAttack : PlayerState
             var col = _hitCollider.GetComponent<Collider>();
             col.isTrigger = true;
             _hitCollider.AddComponent<PlayerAttackHitbox>().State = this;
+
+
+            //Anim
+            _hasEnded = false;
+            StateMachine.GetComponent<Animator>().Play("Attack");
         }
 
         _hitCollider.SetActive(true);
@@ -30,16 +36,22 @@ public class PlayerStateAttack : PlayerState
 
     public override void StateUpdate()
     {
-        _timer += Time.deltaTime;
-        if (_timer >= _attackDuration)
+        base.StateUpdate();
+        if (_hasEnded)
         {
-            _hitCollider.SetActive(false);
             ChangeState(StateMachine.idle);
         }
     }
+    public void OnAttackAnimationEnd()
+    {
+        Debug.Log("Attack animation finished");
+        _hasEnded = true;
+    }
+
 
     public override void StateExit()
     {
         _hitCollider?.SetActive(false);
+        _hasEnded = false;
     }
 }
