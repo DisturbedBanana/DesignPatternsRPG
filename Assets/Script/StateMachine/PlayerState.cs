@@ -4,6 +4,9 @@ public abstract class PlayerState
 {
     public PlayerStateMachine StateMachine;
     public Rigidbody rb => StateMachine.rb;
+    protected Camera _mainCam;
+
+    protected Ray _ray;
 
     public virtual void StateEnter()
     {
