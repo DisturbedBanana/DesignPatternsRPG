@@ -6,7 +6,7 @@ public class PlayerMovementClick : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float maxClickDistance = 100f;
     [SerializeField] private PlayerClick clickEvent;
-    [SerializeField] private BehaviorGraphAgent m_Agent;
+    //[SerializeField] private BehaviorGraphAgent m_Agent;
     
     [SerializeField] private GameObject targetMarker;
 
@@ -19,7 +19,6 @@ public class PlayerMovementClick : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        // Create target marker if not assigned
         if (targetMarker == null)
         {
             targetMarker = new GameObject("ClickTarget");
