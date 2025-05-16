@@ -40,6 +40,11 @@ public class EntityHealth : MonoBehaviour
         CheckIfDead();
     }
 
+    public void Heal()
+    {
+        
+    }
+
     private void CheckIfDead()
     {
         if (health > 0)
