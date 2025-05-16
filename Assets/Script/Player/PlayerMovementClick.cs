@@ -1,31 +1,31 @@
 using UnityEngine;
 using Unity.Behavior;
+using UnityEngine.Serialization;
 
 public class PlayerMovementClick : MonoBehaviour
 {
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float maxClickDistance = 100f;
-    [SerializeField] private PlayerClick clickEvent;
-    //[SerializeField] private BehaviorGraphAgent m_Agent;
+    [FormerlySerializedAs("groundLayer")] [SerializeField] private LayerMask _groundLayer;
+    [FormerlySerializedAs("maxClickDistance")] [SerializeField] private float _maxClickDistance = 100f;
+    [FormerlySerializedAs("clickEvent")] [SerializeField] private PlayerClick _clickEvent;
     
-    [SerializeField] private GameObject targetMarker;
+    [FormerlySerializedAs("targetMarker")] [SerializeField] private GameObject _targetMarker;
 
-    private Camera mainCamera;
-    private Transform targetTransform; 
-    private bool hasTarget = false; 
+    private Camera _mainCamera;
+    private Transform _targetTransform; 
+    private bool _hasTarget = false; 
 
 
     void Start()
     {
-        mainCamera = Camera.main;
+        _mainCamera = Camera.main;
 
-        if (targetMarker == null)
+        if (_targetMarker == null)
         {
-            targetMarker = new GameObject("ClickTarget");
-            targetMarker.hideFlags = HideFlags.HideInHierarchy; 
+            _targetMarker = new GameObject("ClickTarget");
+            _targetMarker.hideFlags = HideFlags.HideInHierarchy; 
         }
 
-        targetTransform = targetMarker.transform;
+        _targetTransform = _targetMarker.transform;
     }
 
     void Update()
@@ -38,17 +38,17 @@ public class PlayerMovementClick : MonoBehaviour
 
     void HandleMouseClick()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         
-        if (Physics.Raycast(ray, out hit, maxClickDistance, groundLayer))
+        if (Physics.Raycast(ray, out hit, _maxClickDistance, _groundLayer))
         {
-            targetTransform.position = hit.point;
-            hasTarget = true;
+            _targetTransform.position = hit.point;
+            _hasTarget = true;
             
-            if (clickEvent != null)
+            if (_clickEvent != null)
             {
-                clickEvent.SendEventMessage(this.gameObject, targetTransform);
+                _clickEvent.SendEventMessage(this.gameObject, _targetTransform);
             }
         }
     }
@@ -56,9 +56,9 @@ public class PlayerMovementClick : MonoBehaviour
     private void OnDestroy()
     {
         // Destroy the target marker if we created it
-        if (targetMarker != null && targetMarker.hideFlags == HideFlags.HideInHierarchy)
+        if (_targetMarker != null && _targetMarker.hideFlags == HideFlags.HideInHierarchy)
         {
-            Destroy(targetMarker);
+            Destroy(_targetMarker);
         }
     }
 }
