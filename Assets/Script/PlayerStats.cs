@@ -1,12 +1,14 @@
+using NaughtyAttributes.Test;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    private float _ATK;
-    private float _SPEED;
-    private float _ATKSPEED;
-    private float _HEALTH;
-    private float _DEF;
+    private float _atk;
+    private float _speed;
+    private float _atkSpeed;
+    private float _health;
+    private float _def;
+    //private SO_SOCurrentStats;
 
     [SerializeField] private SOStatsAlterable baseStats;
 
@@ -17,21 +19,21 @@ public class PlayerStats : MonoBehaviour
 
     public void AddStats(SOStatsAlterable statsToAdd)
     {
-        _ATK += statsToAdd.ATK;
-        _SPEED += statsToAdd.SPEED;
-        _ATKSPEED += statsToAdd.ATKSPEED;
-        _HEALTH += statsToAdd.HEALTH;
-        _DEF += statsToAdd.DEF;
+        _atk += statsToAdd.ATK;
+        _speed += statsToAdd.SPEED;
+        _atkSpeed += statsToAdd.ATKSPEED;
+        _health += statsToAdd.HEALTH;
+        _def += statsToAdd.DEF;
 
-        Debug.Log($"Stats updated! ATK: {_ATK}, SPEED: {_SPEED}, HEALTH: {_HEALTH}");
+        Debug.Log($"Stats updated! ATK: {_atk}, SPEED: {_speed}, HEALTH: {_health}");
     }
 
     private void ApplyStats(SOStatsAlterable stats)
     {
-        _ATK = stats.ATK;
-        _SPEED = stats.SPEED;
-        _ATKSPEED = stats.ATKSPEED;
-        _HEALTH = stats.HEALTH;
-        _DEF = stats.DEF;
+        _atk = stats.ATK;
+        _speed = stats.SPEED;
+        _atkSpeed = stats.ATKSPEED;
+        _health = stats.HEALTH;
+        _def = stats.DEF;
     }
 }

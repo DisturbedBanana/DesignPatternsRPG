@@ -3,15 +3,14 @@ using UnityEngine;
 public class PlayerStateAttack : PlayerState
 {
     private GameObject _hitCollider;
-    private float _attackDuration = 0.5f;
-    private float _timer = 0f;
     private bool _hasEnded;
+    private Animator _anim;
 
     public override void StateEnter()
     {
         Debug.Log("Player attaque !");
 
-        rb.linearVelocity = Vector3.zero;
+        Rb.linearVelocity = Vector3.zero;
 
         if (_hitCollider == null)
         {
@@ -23,31 +22,33 @@ public class PlayerStateAttack : PlayerState
             var col = _hitCollider.GetComponent<Collider>();
             col.isTrigger = true;
             _hitCollider.AddComponent<PlayerAttackHitbox>().State = this;
-
-
-            //Anim
-            _hasEnded = false;
-            StateMachine.GetComponent<Animator>().Play("Attack");
         }
 
+        _anim = StateMachine.GetComponentInChildren<Animator>();
+        _anim.SetTrigger("PlayerAttack");
+
         _hitCollider.SetActive(true);
-        _timer = 0f;
+        _hasEnded = false;
     }
 
     public override void StateUpdate()
     {
         base.StateUpdate();
-        if (_hasEnded)
+
+        var stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.normalizedTime >= 1f)
         {
+            OnAttackAnimationEnd();
             ChangeState(StateMachine.idle);
         }
     }
+
     public void OnAttackAnimationEnd()
     {
         Debug.Log("Attack animation finished");
         _hasEnded = true;
     }
-
 
     public override void StateExit()
     {
