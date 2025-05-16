@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FxTemporaire
   - Collectibles
+  - Enemy
   layers:
   - Default
   - TransparentFX
