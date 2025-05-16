@@ -20,6 +20,7 @@ public class PlayerStateMove : PlayerState
 
     public override void StateUpdate()
     {
+        if (StateMachine.gameObject .GetComponent<EntityHealth>().IsDead) return;
         Vector3 direction = (_targetPos - StateMachine.transform.position);
         direction.y = 0;
 

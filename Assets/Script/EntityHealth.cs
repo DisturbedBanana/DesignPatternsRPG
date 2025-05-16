@@ -80,6 +80,11 @@ public class EntityHealth : MonoBehaviour
             gameObject.GetComponentInChildren<BehaviorGraphAgent>().enabled = false;
             gameObject.GetComponentInChildren<Animator>().SetTrigger("Die");
             gameObject.GetComponent<Collider>().enabled = false;
+
+            if (gameObject.CompareTag("Player"))
+            {
+                GamewideEventsManager.instance.ActivateDeathCanvas();
+            }
         }
     }
     
