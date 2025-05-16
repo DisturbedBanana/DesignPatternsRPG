@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using NaughtyAttributes;
 using Script;
 using Unity.Behavior;
 using UnityEngine;
@@ -41,6 +42,12 @@ public class EntityHealth : MonoBehaviour
         CheckIfDead();
     }
 
+    [Button ("Heal")]
+    public void TestHeal()
+    {
+        Heal(1);
+    }
+    
     public void Heal(int healAmount)
     {
         if (isDead)
