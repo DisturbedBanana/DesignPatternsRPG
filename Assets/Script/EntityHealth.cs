@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Script;
+using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static GameplayEnums;
@@ -40,9 +41,21 @@ public class EntityHealth : MonoBehaviour
         CheckIfDead();
     }
 
-    public void Heal()
+    public void Heal(int healAmount)
     {
+        if (isDead)
+            return;
         
+        if (health + healAmount > maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+        {
+            health += healAmount;
+        }
+        
+        effectsPlayer.PlayEffect(EffectType.Heal);
     }
 
     private void CheckIfDead()
@@ -57,6 +70,9 @@ public class EntityHealth : MonoBehaviour
             Debug.Log(gameObject.name + " is dead");
             effectsPlayer.PlayEffect(EffectType.Death);
             isDead = true;
+            gameObject.GetComponentInChildren<BehaviorGraphAgent>().enabled = false;
+            gameObject.GetComponentInChildren<Animator>().SetTrigger("Die");
+            gameObject.GetComponent<Collider>().enabled = false;
         }
     }
     

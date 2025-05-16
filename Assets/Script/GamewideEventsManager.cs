@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GamewideEventsManager : MonoBehaviour
@@ -8,6 +9,19 @@ public class GamewideEventsManager : MonoBehaviour
 
     private EntityHealth healthComponent;
 
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnEnable()
     {
