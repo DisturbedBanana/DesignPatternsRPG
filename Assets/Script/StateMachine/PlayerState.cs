@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class PlayerState
 {
     public PlayerStateMachine StateMachine;
-    public Rigidbody rb => StateMachine.rb;
+    public Rigidbody Rb => StateMachine.rb;
     protected Camera _mainCam;
 
     protected Ray _ray;

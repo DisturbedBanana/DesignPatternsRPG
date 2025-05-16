@@ -8,6 +8,7 @@ public class PlayerAttackHitbox : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            GamewideEventsManager.instance.ApplyDamageToEntity(this.transform.parent.gameObject, other.gameObject);
             Debug.Log("Ennemi touché : " + other.name);
         }
     }
