@@ -8,8 +8,6 @@ public class PlayerStateAttack : PlayerState
 
     public override void StateEnter()
     {
-        Debug.Log("Player attaque !");
-
         Rb.linearVelocity = Vector3.zero;
 
         if (_hitCollider == null)
@@ -35,6 +33,18 @@ public class PlayerStateAttack : PlayerState
     {
         base.StateUpdate();
 
+        if (StateMachine.targetTransform != null)
+        {
+            Vector3 dir = StateMachine.targetTransform.transform.position - StateMachine.transform.position;
+            dir.y = 0f;
+
+            if (dir != Vector3.zero)
+            {
+                Quaternion rot = Quaternion.LookRotation(dir);
+                StateMachine.transform.rotation = Quaternion.Slerp(StateMachine.transform.rotation, rot, Time.deltaTime * 10f);
+            }
+        }
+
         var stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
 
         if (stateInfo.normalizedTime >= 1f)
@@ -46,7 +56,6 @@ public class PlayerStateAttack : PlayerState
 
     public void OnAttackAnimationEnd()
     {
-        Debug.Log("Attack animation finished");
         _hasEnded = true;
     }
 

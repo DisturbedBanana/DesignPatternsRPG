@@ -7,7 +7,6 @@ public class PlayerStateMove : PlayerState
 
     public override void StateEnter()
     {
-        Debug.Log("State move youpi");
         if (StateMachine.targetTransform != null)
         {
             _targetPos = StateMachine.targetTransform.transform.position;
@@ -32,6 +31,15 @@ public class PlayerStateMove : PlayerState
             }
             ChangeState(StateMachine.idle);
         }
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            StateMachine.transform.rotation = Quaternion.Slerp(StateMachine.transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+
+        direction.Normalize();
+        StateMachine.transform.position += direction * speed * Time.deltaTime;
 
         if (Input.GetMouseButtonDown(1))
         {
